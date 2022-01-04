@@ -57,5 +57,7 @@ def getdoc(document):
 
 stemmed_doc=getdoc(X)
 
-print("Count_Vectorizer")
-#next day
+#print("Count_Vectorizer")
+from sklearn.feature_extraction.text import CountVectorizer
+ct=CountVectorizer(encoding='utf-8')
+final_doc=ct.fit_transform(stemmed_doc)
