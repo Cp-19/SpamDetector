@@ -56,8 +56,25 @@ def getdoc(document):
     return d
 
 stemmed_doc=getdoc(X)
-
+#print(stemmed_doc[5])
 #print("Count_Vectorizer")
+
 from sklearn.feature_extraction.text import CountVectorizer
 ct=CountVectorizer(encoding='utf-8')
 final_doc=ct.fit_transform(stemmed_doc)
+final_doc=final_doc.todense()
+
+from sklearn.model_selection import train_test_split
+X_train,X_test,y_train,y_test=train_test_split(final_doc,Y,random_state=20)
+from sklearn.naive_bayes import GaussianNB
+model=GaussianNB()
+model=model.fit(X_train,y_train)
+predict=model.predict(X_test)
+
+from sklearn.metrics import accuracy_score,classification_report
+
+#Model is 82.41% accurate
+print(accuracy_score(y_test,predict))
+print(classification_report(y_test, predict))
+
+
